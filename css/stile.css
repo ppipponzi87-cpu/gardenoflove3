@@ -80,7 +80,16 @@ html[data-lingua="en"] [lang="it"]:not(html) { display: none !important; }
   color: var(--ambra); border-radius: 999px; padding: 4px 12px; font: 600 13px 'OpenSans', sans-serif;
   cursor: pointer; margin-left: 8px;
 }
-@media (max-width: 760px) { .menu { display: none; } .lingua { margin-left: auto; } }
+/* Telefono: il menu diventa una riga scorrevole sotto la barra. */
+@media (max-width: 760px) {
+  .barra .contenitore { flex-wrap: wrap; height: auto; padding: 10px 0 0; row-gap: 6px; }
+  .lingua { margin-left: auto; }
+  .menu { order: 3; width: 100%; margin: 0; gap: 20px; overflow-x: auto; padding: 4px 0 10px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .menu::-webkit-scrollbar { display: none; }
+  .menu a { white-space: nowrap; font-size: 14px; }
+}
+section[id], .campagna[id] { scroll-margin-top: 104px; }
 
 /* ---------- apertura ---------- */
 .apertura {
@@ -185,7 +194,9 @@ html[data-lingua="en"] [lang="it"]:not(html) { display: none !important; }
   box-shadow: var(--ombra); margin-top: 32px;
 }
 @media (min-width: 860px) { .campagna { grid-template-columns: 1fr 1fr; } }
-.campagna .foto { aspect-ratio: 4/3; background: var(--pesca) center/cover no-repeat; }
+.campagna .foto { aspect-ratio: 4/3; background: var(--pesca) center/cover no-repeat; display: block; }
+.titolo-campagna { color: inherit; text-decoration: none; }
+.titolo-campagna:hover { color: var(--ambra); }
 .campagna .corpo { padding: 28px; display: flex; flex-direction: column; gap: 12px; }
 .barra-progresso { height: 12px; border-radius: 99px; background: color-mix(in srgb, var(--oro) 22%, transparent); overflow: hidden; }
 .barra-progresso span { display: block; height: 100%; background: var(--oro); border-radius: 99px; width: 0; transition: width 1.2s ease-out; }

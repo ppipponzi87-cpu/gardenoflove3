@@ -70,7 +70,7 @@ async function caricaCampagne() {
   if (!box) return;
   try {
     const r = await fetch(
-      SUPABASE_URL + '/rest/v1/campagne?select=titolo,sottotitolo,testo,link_donazione,obiettivo,' +
+      SUPABASE_URL + '/rest/v1/campagne?select=slug,titolo,sottotitolo,testo,link_donazione,obiettivo,' +
       'raccolto,numero_donazioni,importi_aggiornati_il,immagine_copertina,immagini' +
       '&attiva=eq.true&order=ordine.asc',
       { headers: { apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON } });
@@ -86,11 +86,14 @@ async function caricaCampagne() {
       const data = c.importi_aggiornati_il
         ? new Date(c.importi_aggiornati_il).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
         : null;
+      const link = encodeURI(c.link_donazione || '');
+      const ancora = testo(c.slug || '');
       return `
-      <article class="campagna appare">
-        <div class="foto" style="background-image:url('${encodeURI(foto)}')"></div>
+      <article class="campagna appare" id="${ancora}">
+        <a class="foto" href="${link}" target="_blank" rel="noopener" aria-label="${testo(c.titolo)}"
+           style="background-image:url('${encodeURI(foto)}')"></a>
         <div class="corpo">
-          <h3>${testo(c.titolo)}</h3>
+          <h3><a class="titolo-campagna" href="${link}" target="_blank" rel="noopener">${testo(c.titolo)}</a></h3>
           ${c.sottotitolo ? `<p style="color:var(--grigio);margin:0">${testo(c.sottotitolo)}</p>` : ''}
           ${quota !== null ? `<div class="barra-progresso" role="progressbar" aria-valuemin="0" aria-valuemax="100"
                aria-valuenow="${Math.round(quota)}"><span data-quota="${quota}"></span></div>` : ''}
@@ -100,13 +103,16 @@ async function caricaCampagne() {
             ${c.numero_donazioni ? ` · ${c.numero_donazioni} <span lang="it">donazioni</span><span lang="en">donations</span>` : ''}
             ${data ? `<br><span lang="it">aggiornato al</span><span lang="en">updated</span> ${data}` : ''}</small></p>
           <p>${testo(primo)}</p>
-          <a class="bottone" href="${encodeURI(c.link_donazione)}" target="_blank" rel="noopener">
+          <a class="bottone" href="${link}" target="_blank" rel="noopener">
             <span lang="it">${gofundme ? 'Dona su GoFundMe' : 'Dona'}</span>
             <span lang="en">${gofundme ? 'Donate on GoFundMe' : 'Donate'}</span></a>
         </div>
       </article>`;
     }).join('');
     osservaApparizioni(box);
+    if (location.hash.length > 1) {
+      document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
+    }
     requestAnimationFrame(() => setTimeout(() => {
       box.querySelectorAll('[data-quota]').forEach((s) => { s.style.width = s.dataset.quota + '%'; });
     }, 300));
