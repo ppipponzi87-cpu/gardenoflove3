@@ -1,0 +1,227 @@
+/* Il Giardino del Cuore — sito vetrina. Palette e caratteri dell'app. */
+:root {
+  --crema: #FFFBF2;
+  --carta: #FFF3D9;
+  --bianco: #FFFFFF;
+  --testo: #3E3631;
+  --grigio: #766B62;
+  --ambra: #9A6416;
+  --ambra-scura: #6B4410;
+  --malva: #93587D;
+  --oro: #F5C03E;
+  --rosa: #F4B9C9;
+  --lilla: #D9C8F0;
+  --pesca: #FAD4B5;
+  --celeste: #BFDDF2;
+  --salvia: #BFDDBF;
+  --notte: #070E1C;
+  --ombra: 0 6px 24px rgba(62, 54, 49, .10);
+  --raggio: 20px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="chiaro"]) {
+    --crema: #1d1915; --carta: #2a231c; --bianco: #25201a;
+    --testo: #EDE3D0; --grigio: #b8ab9b; --ambra: #E7B869; --ambra-scura: #F2CF8E;
+    --malva: #D6A2C4; --ombra: 0 6px 24px rgba(0, 0, 0, .35);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--crema); color: var(--testo);
+  font: 17px/1.65 'OpenSans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--ambra); }
+h1, h2, h3 { font-family: 'PlayfairDisplay', Georgia, serif; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(30px, 6vw, 44px); font-weight: 600; }
+h3 { font-size: 22px; font-weight: 600; }
+p { margin: 0 0 1em; }
+.matita { font-family: 'GloriaHallelujah', cursive; letter-spacing: .02em; }
+.contenitore { width: min(1080px, 100% - 32px); margin-inline: auto; }
+.stretto { width: min(720px, 100% - 32px); margin-inline: auto; }
+section { padding: clamp(64px, 10vw, 112px) 0; position: relative; }
+.occhiello {
+  font-family: 'GloriaHallelujah', cursive; color: var(--malva);
+  font-size: 18px; margin-bottom: 8px; display: block;
+}
+.citazione {
+  font-family: 'PlayfairDisplay', Georgia, serif; font-style: italic;
+  font-size: clamp(19px, 3vw, 23px); line-height: 1.5; color: var(--testo);
+  border-left: 3px solid var(--oro); padding: 4px 0 4px 20px; margin: 28px 0;
+}
+.citazione cite { display: block; font-style: normal; font-family: 'OpenSans', sans-serif;
+  font-size: 14px; color: var(--grigio); margin-top: 8px; letter-spacing: .04em; }
+
+/* Lingua: si mostra solo la lingua attiva (impostata da js/sito.js). */
+html[data-lingua="it"] [lang="en"]:not(html),
+html[data-lingua="en"] [lang="it"]:not(html) { display: none !important; }
+
+/* ---------- barra in alto ---------- */
+.barra {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  background: color-mix(in srgb, var(--crema) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--oro) 30%, transparent);
+}
+.barra .contenitore { display: flex; align-items: center; gap: 12px; height: 60px; }
+.marchio { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--testo);
+  font-family: 'PlayfairDisplay', serif; font-weight: 600; font-size: 18px; }
+.marchio img { width: 34px; height: 34px; border-radius: 10px; }
+.menu { margin-left: auto; display: flex; gap: 18px; }
+.menu a { color: var(--testo); text-decoration: none; font-size: 15px; }
+.menu a:hover { color: var(--ambra); }
+.lingua {
+  border: 1px solid color-mix(in srgb, var(--ambra) 40%, transparent); background: transparent;
+  color: var(--ambra); border-radius: 999px; padding: 4px 12px; font: 600 13px 'OpenSans', sans-serif;
+  cursor: pointer; margin-left: 8px;
+}
+@media (max-width: 760px) { .menu { display: none; } .lingua { margin-left: auto; } }
+
+/* ---------- apertura ---------- */
+.apertura {
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center; text-align: center;
+  padding: 96px 0 64px;
+  background:
+    radial-gradient(60% 45% at 50% 38%, color-mix(in srgb, var(--oro) 38%, transparent), transparent 70%),
+    radial-gradient(40% 30% at 12% 85%, color-mix(in srgb, var(--rosa) 45%, transparent), transparent 70%),
+    radial-gradient(40% 30% at 90% 80%, color-mix(in srgb, var(--lilla) 50%, transparent), transparent 70%),
+    var(--crema);
+}
+.apertura .logo { width: min(420px, 82vw); margin: 0 auto 8px; animation: affiora 1.6s ease-out both; }
+.apertura .motto { font-family: 'PlayfairDisplay', serif; font-style: italic;
+  font-size: clamp(20px, 3.4vw, 26px); color: var(--grigio); margin: 12px auto 4px; }
+.apertura .firma { font-size: 14px; letter-spacing: .08em; color: var(--grigio); }
+.apertura .sottotitolo { font-size: clamp(17px, 2.4vw, 19px); max-width: 34em; margin: 24px auto 32px; }
+@keyframes affiora { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .apertura .logo { animation: none; } }
+
+.bottoni { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.bottone {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  padding: 14px 24px; border-radius: 999px; font-weight: 600; font-size: 16px;
+  background: var(--ambra); color: #fff; box-shadow: var(--ombra); border: 0; cursor: pointer;
+}
+.bottone:hover { background: var(--ambra-scura); }
+.bottone.secondario { background: transparent; color: var(--ambra); box-shadow: none;
+  border: 1.5px solid var(--ambra); }
+.bottone.secondario:hover { background: color-mix(in srgb, var(--ambra) 10%, transparent); }
+.bottone .nota { font-weight: 400; font-size: 13px; opacity: .85; }
+
+/* ---------- chi siamo ---------- */
+.due-colonne { display: grid; gap: 40px; align-items: center; }
+@media (min-width: 860px) { .due-colonne { grid-template-columns: 1.1fr .9fr; gap: 64px; } }
+.versi p { margin: 0; }
+.versi p + p { margin-top: 2px; }
+.versi .forte { font-weight: 600; }
+.sole-fiori { position: relative; aspect-ratio: 1; max-width: 420px; margin-inline: auto; width: 100%; }
+.sole-fiori img { width: 100%; animation: gira 120s linear infinite; }
+@keyframes gira { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .sole-fiori img { animation: none; } }
+
+/* ---------- valori ---------- */
+.valori { background: var(--carta); }
+.griglia-valori { display: grid; gap: 20px; margin-top: 40px; }
+@media (min-width: 760px) { .griglia-valori { grid-template-columns: repeat(3, 1fr); } }
+.valore {
+  background: var(--bianco); border-radius: var(--raggio); padding: 28px 24px; box-shadow: var(--ombra);
+  text-align: center;
+}
+.valore .fiore { width: 56px; height: 56px; margin: 0 auto 12px; }
+.valore h3 { font-size: 26px; }
+.valore p { color: var(--grigio); margin: 8px 0 0; font-style: italic; }
+
+/* ---------- spirito ---------- */
+.fonti { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; padding: 0; list-style: none; }
+.fonti li { background: var(--carta); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+
+/* ---------- cosa facciamo ---------- */
+.notte {
+  background:
+    radial-gradient(1.5px 1.5px at 12% 20%, #fff8, transparent),
+    radial-gradient(1px 1px at 30% 70%, #fff6, transparent),
+    radial-gradient(1.5px 1.5px at 55% 30%, #fff9, transparent),
+    radial-gradient(1px 1px at 72% 60%, #fff7, transparent),
+    radial-gradient(1.5px 1.5px at 88% 18%, #fff8, transparent),
+    radial-gradient(1px 1px at 20% 90%, #fff5, transparent),
+    radial-gradient(1px 1px at 64% 88%, #fff6, transparent),
+    radial-gradient(80% 60% at 50% 0%, #16305c, transparent 70%),
+    var(--notte);
+  color: #EDE3D0;
+}
+.notte h2, .notte h3 { color: #EDE3D0; }
+.notte .occhiello { color: #E2BE6A; }
+.notte .citazione { color: #EDE3D0; }
+.notte .citazione cite { color: #9aa6bd; }
+.tre { display: grid; gap: 20px; margin: 40px 0; }
+@media (min-width: 860px) { .tre { grid-template-columns: repeat(3, 1fr); } }
+.tre > div { border: 1px solid rgba(226, 190, 106, .28); border-radius: var(--raggio); padding: 24px; }
+.tre h3 { color: #E2BE6A; margin-bottom: 8px; }
+.accanto { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.accanto li { padding-left: 30px; position: relative; }
+.accanto li::before { content: "✿"; position: absolute; left: 0; color: #F4B9C9; }
+
+/* ---------- l'app ---------- */
+.griglia-app { display: grid; gap: 16px; margin-top: 40px; }
+@media (min-width: 640px) { .griglia-app { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .griglia-app { grid-template-columns: repeat(3, 1fr); } }
+.sezione-app { background: var(--bianco); border-radius: var(--raggio); padding: 24px; box-shadow: var(--ombra); }
+.sezione-app .icona {
+  width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+  font-size: 24px; margin-bottom: 12px;
+}
+.sezione-app p { color: var(--grigio); margin: 6px 0 0; font-size: 16px; }
+.scarica { text-align: center; margin-top: 48px; }
+.scarica .nota-piccola { color: var(--grigio); font-size: 14px; margin-top: 12px; }
+
+/* ---------- progetti ---------- */
+.progetti { background: var(--carta); }
+.campagna {
+  display: grid; background: var(--bianco); border-radius: var(--raggio); overflow: hidden;
+  box-shadow: var(--ombra); margin-top: 32px;
+}
+@media (min-width: 860px) { .campagna { grid-template-columns: 1fr 1fr; } }
+.campagna .foto { aspect-ratio: 4/3; background: var(--pesca) center/cover no-repeat; }
+.campagna .corpo { padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+.barra-progresso { height: 12px; border-radius: 99px; background: color-mix(in srgb, var(--oro) 22%, transparent); overflow: hidden; }
+.barra-progresso span { display: block; height: 100%; background: var(--oro); border-radius: 99px; width: 0; transition: width 1.2s ease-out; }
+.importi { font-weight: 600; }
+.importi small { font-weight: 400; color: var(--grigio); }
+
+/* ---------- il luogo ---------- */
+.fuoco {
+  background:
+    radial-gradient(50% 60% at 50% 100%, rgba(245, 140, 40, .55), transparent 70%),
+    radial-gradient(30% 35% at 50% 100%, rgba(255, 210, 90, .6), transparent 70%),
+    #1c120c;
+  color: #F6E9D6;
+}
+.fuoco h2 { color: #F6E9D6; }
+.fuoco .occhiello { color: #FAD4B5; }
+.fuoco .citazione { color: #F6E9D6; border-color: #F5A04A; }
+.fuoco .citazione cite { color: #cdb49a; }
+.fuoco .versi { font-size: clamp(18px, 2.6vw, 21px); }
+
+/* ---------- unisciti ---------- */
+.contatti { display: grid; gap: 12px; margin: 28px 0; }
+.contatti a { font-size: 18px; text-decoration: none; }
+.chiusura { font-family: 'PlayfairDisplay', serif; font-style: italic; font-size: clamp(19px, 3vw, 23px);
+  color: var(--grigio); margin-top: 40px; }
+
+footer { background: var(--carta); padding: 40px 0; font-size: 14px; color: var(--grigio); }
+footer .contenitore { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+footer nav { display: flex; gap: 16px; flex-wrap: wrap; margin-left: auto; }
+footer a { color: var(--grigio); }
+
+.appare { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+.appare.visibile { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .appare { opacity: 1; transform: none; transition: none; } }
+.visivamente-nascosto { position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; }
+/* ?anteprima: per gli screenshot a pagina intera (tutto visibile, niente animazioni). */
+html.anteprima .apertura { min-height: 0; }
+html.anteprima .appare { opacity: 1; transform: none; transition: none; }
